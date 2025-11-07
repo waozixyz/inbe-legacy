@@ -232,6 +232,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
 
   @override
   void dispose() {
+    audioPlayerService.releaseAudioFocus();
     audioPlayerService.disposePlayer('bell');
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 

@@ -98,6 +98,14 @@ Future<void> play(String assetPath, double volume, String playerId) async {
     }
 
 
+  Future<void> releaseAudioFocus() async {
+    try {
+      await _session.setActive(false);
+    } catch (e) {
+      print('Error releasing audio focus: $e');
+    }
+  }
+
   void dispose() {
     _interruptionSubscription?.cancel();
     for (var player in _players.values) {

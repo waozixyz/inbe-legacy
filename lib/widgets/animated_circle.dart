@@ -130,9 +130,10 @@ class AnimatedCircleState extends State<AnimatedCircle>
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     _controller.dispose();
 
+    audioPlayerService.releaseAudioFocus();
     audioPlayerService.disposePlayer('in');
     audioPlayerService.disposePlayer('out');
     super.dispose();
