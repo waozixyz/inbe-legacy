@@ -6,6 +6,8 @@
     <content_rating type="oars-1.1" />
     <developer_name>NaoX</developer_name>
     <categories>
+        <category>HealthFitness</category>
+        <category>Mindfulness</category>
         <category>Utility</category>
     </categories>
     <keywords>
