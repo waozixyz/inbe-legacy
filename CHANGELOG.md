@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-05-28
+- Fix Nix shell and Android SDK versions
+- Update dependencies for compatibility with newer Flutter
+
 ## [1.4.1] - 2025-03-16
 - Attempt to fix github actions
 

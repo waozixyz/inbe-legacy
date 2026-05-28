@@ -36,7 +36,33 @@ pkgs.mkShell {
 
     # Android dependencies
     androidComposition.androidsdk
-    jdk17  # Updated to JDK 17
+    jdk17
+
+    # Linux desktop dependencies
+    at-spi2-core
+    gcc
+    cmake
+    dbus
+    gdk-pixbuf
+    glib
+    gtk3
+    libdatrie
+    libepoxy
+    libselinux
+    libsepol
+    libthai
+    libxkbcommon
+    ninja
+    pcre
+    pkg-config
+    sysprof
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXext
+    xorg.libXinerama
+    xorg.libXi
+    xorg.libXrender
+    xorg.libXtst
 
     # Chrome
     google-chrome
@@ -52,5 +78,33 @@ pkgs.mkShell {
     export ANDROID_HOME=${androidComposition.androidsdk}/libexec/android-sdk
     export CHROME_EXECUTABLE=${pkgs.google-chrome}/bin/google-chrome-stable
     export PATH=$PATH:$ANDROID_HOME/platform-tools
+    
+    # Required for Flutter Linux desktop build
+    export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath (with pkgs; [
+      stdenv.cc.cc.lib
+      gtk3
+      glib
+      libepoxy
+      at-spi2-core
+      dbus
+      gdk-pixbuf
+      pango
+      cairo
+      harfbuzz
+    ])}:$LD_LIBRARY_PATH
+    
+    # Explicitly set compiler paths to avoid system leakage
+    export CC=${pkgs.gcc}/bin/gcc
+    export CXX=${pkgs.gcc}/bin/g++
+    
+    # Add libstdc++ and other libraries to search path
+    export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.lib.makeLibraryPath (with pkgs; [
+      stdenv.cc.cc.lib
+      gtk3
+      glib
+    ])}:$LIBRARY_PATH
+
+    # Ensure sysprof-capture-4.pc is found
+    export PKG_CONFIG_PATH=${pkgs.sysprof.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
   '';
 }

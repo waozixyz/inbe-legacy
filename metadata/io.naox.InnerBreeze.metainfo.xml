@@ -62,6 +62,21 @@
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inbreeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
 <releases>
+        <release version="1.5.0" date="2026-05-28">
+            <description>
+                <ul>
+                    <li>Fix Nix shell and Android SDK versions</li>
+                    <li>Update dependencies for compatibility with newer Flutter</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.4.1" date="2025-03-16">
+            <description>
+                <ul>
+                    <li>Attempt to fix github actions</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.4.0" date="2025-03-14">
             <description>
                 <ul>

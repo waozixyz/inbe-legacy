@@ -1,0 +1,3 @@
+* Fix Nix shell and Android SDK versions
+* Update dependencies for compatibility with newer Flutter
+
