@@ -8,7 +8,7 @@ on:
       - '*'
 
 env:
-  FLUTTER_VERSION: '3.44.0'
+  FLUTTER_VERSION: '3.24.0'
   IS_PRERELEASE: ${{ startsWith(github.ref, 'refs/tags/') && 'false' || 'true' }}
   RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
 
