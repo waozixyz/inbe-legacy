@@ -156,16 +156,35 @@
             margin-top: 3rem;
             background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
         }
+
+        .deprecation-warning {
+            background-color: #ffcc00;
+            color: #000;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .deprecation-warning a {
+            color: #000;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <div class="deprecation-warning">
+        ⚠️ This version of InBreeze is deprecated. Please use the <strong><a href="https://inbe.waozi.xyz/">new version at inbe.waozi.xyz</a></strong>.
+    </div>
     <header>
         <div class="logo-container">
             <img src="/assets/inbreeze.webp" alt="Inner Breeze Logo">
             <div class="title-container">
                 <h1>InBreeze</h1>
                 <p class="tagline">Inner Breeze for Inner Peace</p>
-                <p class="version">Stable Version: v1.3.6</p>
+                <p class="version">Legacy Version: v1.3.6</p>
             </div>
         </div>
     </header>
@@ -179,37 +198,24 @@
         <section class="app-grid">
             <div class="app-card">
                 <h3>Web App</h3>
-                <a href="https://inner-breeze.netlify.app/" class="button">Launch Now</a>
+                <a href="https://inbe.waozi.xyz/" class="button">Launch New Version</a>
             </div>
             <div class="app-card">
                 <h3>Android</h3>
                 <a href="https://f-droid.org/packages/io.naox.inbe" class="button">F-Droid</a>
-                <a href="https://github.com/naoxio/inbreeze/releases/download/1.3.6/InnerBreeze.apk" class="button">Download APK</a>
+                <a href="https://github.com/waozixyz/inbe-legacy/releases/download/1.3.6/InnerBreeze.apk" class="button">Download APK</a>
             </div>
             <div class="app-card">
                 <h3>Linux</h3>
-                <a href="https://github.com/naoxio/inbreeze/releases/download/1.3.6/InnerBreeze-Linux-x86_64.tar.gz" class="button">Archive</a>
+                <a href="https://github.com/waozixyz/inbe-legacy/releases/download/1.3.6/InnerBreeze-Linux-x86_64.tar.gz" class="button">Archive</a>
                 <a href="https://flathub.org/apps/io.naox.InnerBreeze" class="button">Flathub</a>
-                <a href="https://github.com/naoxio/inbreeze/releases/download/1.3.6/InnerBreeze-x86_64.AppImage" class="button">AppImage</a>
+                <a href="https://github.com/waozixyz/inbe-legacy/releases/download/1.3.6/InnerBreeze-x86_64.AppImage" class="button">AppImage</a>
             </div>
 
             <div class="app-card">
                 <h3>Windows</h3>
-                <a href="https://github.com/naoxio/inbreeze/releases/download/1.3.3/InnerBreeze-Windows-x86_64.zip" class="button">Download ZIP</a>
+                <a href="https://github.com/waozixyz/inbe-legacy/releases/download/1.3.3/InnerBreeze-Windows-x86_64.zip" class="button">Download ZIP</a>
             </div>
-        </section>
-
-        <section id="donate">
-            <h2>Support Inner Breeze</h2>
-            <p>Your donation helps us continue developing and improving Inner Breeze for everyone.</p>
-            <details>
-                <summary>View Donation Options</summary>
-                <div class="donation-options">
-                    <iframe src="https://trocador.app/anonpay/?ticker_to=xmr&network_to=Mainnet&address=44wpiLs2XqtJ8fQhMtdYgWSQDWdNbAsdMGpJ5PBaftFHAiViUYCUVHU5aN8e8hMQyWjXFZrPDge2yek22RMbaqu12xXqzLG&donation=True&amount=0.1&name=Inner+Breeze&description=Thank+you+for+supporting+Inner+Breeze%21&email=waotzi@proton.me&ticker_from=xmr&network_from=Mainnet&buttonbgcolor=27355e&bgcolor=" width="310" height="350" style="border:0" scrolling="no"></iframe>
-                    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-                    <stripe-buy-button buy-button-id="buy_btn_1P9BKtDfOnP3YLAAG0tchOpX" publishable-key="pk_live_51P6F2VDfOnP3YLAAwIHcNMaNIANBXbcNQABsTVhMrp4En4IOP2vqFF7ktJ07SVkYvi5nsd1iSgpIsVi9xN7YHdeb0020C1GvNV"></stripe-buy-button>
-                </div>
-            </details>
         </section>
     </main>
 
@@ -234,8 +240,8 @@
     <footer>
         <p>© 2026 <a href="https://waozi.xyz">Waozi</a></p>
         <div class="social-links">
-            <a href="https://x.com/waozixyz" target="_blank">X</a>
-            <a href="https://github.com/waozixyz/inbreeze" target="_blank">GitHub</a>
+            <a href="https://t.me/lotusinbe" target="_blank">Telegram</a>
+            <a href="https://github.com/waozixyz/inbe-legacy" target="_blank">Legacy GitHub</a>
         </div>
     </footer>
     
