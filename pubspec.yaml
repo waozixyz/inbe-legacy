@@ -27,7 +27,6 @@ dependencies:
   audioplayers: ^5.2.1
   path_provider: ^2.0.15
   permission_handler: ^10.4.0
-  wakelock_plus: ^1.1.0
   http: ^1.1.2
   fl_chart: ^0.69.0
 
@@ -39,7 +38,6 @@ dev_dependencies:
 
 dependency_overrides:
   package_info_plus: ^7.0.0
-  wakelock_plus: ^1.1.0
 
 flutter:
   uses-material-design: true

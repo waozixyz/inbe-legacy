@@ -8,7 +8,6 @@ import 'package:inner_breeze/utils/breathing_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:inner_breeze/utils/audio_player_service.dart';
 
@@ -53,15 +52,6 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       userProvider.startNewSession();
       sessionData = await userProvider.loadSessionData();
     }
-
-    try {
-      if (preferences.screenAlwaysOn) {
-        WakelockPlus.enable();
-      } else {
-        WakelockPlus.disable();
-      }
-      // ignore: empty_catches
-    } catch (e) {}
 
     int localMaxBreaths = preferences.breaths;
     int localTempo = preferences.tempo;

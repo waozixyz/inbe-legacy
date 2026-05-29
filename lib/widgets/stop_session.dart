@@ -3,7 +3,6 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
 
 class StopSessionButton extends StatefulWidget {
@@ -46,10 +45,6 @@ class _StopSessionButtonState extends State<StopSessionButton> {
 
   void _navigateToResults() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-      try {
-        WakelockPlus.disable();
-      // ignore: empty_catches
-      } catch (e) {}
 
       Navigator.of(context).pop();
 
