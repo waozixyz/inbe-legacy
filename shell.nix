@@ -12,7 +12,7 @@ let
     version = "3.24.0";
     src = pkgs.fetchurl {
       url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.0-stable.tar.xz";
-      hash = "sha256-0000000000000000000000000000000000000000000000000000=";
+      hash = "sha256-1wi16v9zj63sn0hsla4n7nshbyvz1zz03k0win3cz2vxy495sanm=";
     };
   });
 
