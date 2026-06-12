@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
@@ -25,6 +25,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  static const MethodChannel _exportChannel =
+      MethodChannel('io.naox.inbe/export');
+
   bool _screenAlwaysOn = true;
   bool isLoading = false;
 
@@ -156,12 +159,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
       String formattedDate =
           DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
       String fileName = 'InnerBreeze_$formattedDate.json';
-      Uint8List bytes = Uint8List.fromList(utf8.encode(jsonString));
+
+      if (Platform.isAndroid) {
+        await _exportChannel.invokeMethod('shareJsonExport', {
+          'fileName': fileName,
+          'content': jsonString,
+        });
+        _showSnackBar('${'data_exported_success'.i18n()} $fileName');
+        return;
+      }
 
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileName';
       final file = File(filePath);
-      await file.writeAsBytes(bytes);
+      await file.writeAsBytes(utf8.encode(jsonString));
 
       _showSnackBar('${'data_exported_success'.i18n()} to: $filePath');
     } catch (e) {
