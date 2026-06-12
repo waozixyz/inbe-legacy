@@ -27,6 +27,8 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   static const MethodChannel _exportChannel =
       MethodChannel('io.naox.inbe/export');
+  static const String _legacyConverterUrl =
+      'https://inbe.waozi.xyz/legacy-converter.html';
 
   bool _screenAlwaysOn = true;
   bool isLoading = false;
@@ -164,8 +166,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         await _exportChannel.invokeMethod('shareJsonExport', {
           'fileName': fileName,
           'content': jsonString,
+          'converterUrl': _legacyConverterUrl,
         });
-        _showSnackBar('${'data_exported_success'.i18n()} $fileName');
+        _showExportSnackBar('${'data_exported_success'.i18n()} $fileName');
         return;
       }
 
@@ -174,7 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final file = File(filePath);
       await file.writeAsBytes(utf8.encode(jsonString));
 
-      _showSnackBar('${'data_exported_success'.i18n()} to: $filePath');
+      _showExportSnackBar('${'data_exported_success'.i18n()} to: $filePath');
     } catch (e) {
       _showSnackBar('${'error_exporting_data'.i18n()}: $e');
     }
@@ -188,6 +191,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
+      );
+    }
+  }
+
+  void _showExportSnackBar(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          action: SnackBarAction(
+            label: 'Converter',
+            onPressed: () => launchUrl(Uri.parse(_legacyConverterUrl)),
+          ),
+        ),
       );
     }
   }

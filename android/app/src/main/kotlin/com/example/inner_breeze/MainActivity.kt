@@ -1,5 +1,6 @@
 package io.naox.inbe
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.ClipData
 import android.view.WindowManager
@@ -21,6 +22,7 @@ class MainActivity: FlutterActivity() {
                 "shareJsonExport" -> {
                     val fileName = call.argument<String>("fileName")
                     val content = call.argument<String>("content")
+                    val converterUrl = call.argument<String>("converterUrl")
 
                     if (fileName.isNullOrBlank() || content == null) {
                         result.error("invalid_args", "Missing export file name or content", null)
@@ -28,7 +30,7 @@ class MainActivity: FlutterActivity() {
                     }
 
                     try {
-                        shareJsonExport(fileName, content)
+                        shareJsonExport(fileName, content, converterUrl)
                         result.success(null)
                     } catch (error: Exception) {
                         result.error("export_failed", error.message, null)
@@ -57,7 +59,7 @@ class MainActivity: FlutterActivity() {
         }
     }
 
-    private fun shareJsonExport(fileName: String, content: String) {
+    private fun shareJsonExport(fileName: String, content: String, converterUrl: String?) {
         val exportDir = File(cacheDir, "exports")
         exportDir.mkdirs()
 
@@ -74,6 +76,10 @@ class MainActivity: FlutterActivity() {
             type = "application/json"
             putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_TITLE, fileName)
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Legacy Inner Breeze export. To import this into the current version, convert it at: ${converterUrl ?: "https://inbe.waozi.xyz/legacy-converter.html"}"
+            )
             clipData = ClipData.newUri(contentResolver, fileName, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
@@ -82,6 +88,10 @@ class MainActivity: FlutterActivity() {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
-        startActivity(chooser)
+        try {
+            startActivity(chooser)
+        } catch (error: ActivityNotFoundException) {
+            throw IllegalStateException("No app is available to save or share the export", error)
+        }
     }
 }

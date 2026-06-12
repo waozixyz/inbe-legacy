@@ -19,7 +19,7 @@ let
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     cmdLineToolsVersion = "9.0";
     toolsVersion = "26.1.1";
-    platformToolsVersion = "35.0.1";
+    platformToolsVersion = "35.0.2";
     buildToolsVersions = [ "30.0.3" "33.0.0" ];
     includeEmulator = false;
     emulatorVersion = "32.1.15";
