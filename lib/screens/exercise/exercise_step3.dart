@@ -8,6 +8,7 @@ import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class ExerciseStep3 extends StatefulWidget {
   ExerciseStep3({super.key});
@@ -30,13 +31,18 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   void initState() {
     super.initState();
     _loadDataFromPreferences().then((_) {
-      startBreathCounting();
+      if (mounted) {
+        startBreathCounting();
+      }
     });
   }
 
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final preferences = await userProvider.loadUserPreferences(['volume', 'recoveryPause']);
+    final preferences = await userProvider
+        .loadUserPreferences(['volume', 'recoveryPause', 'screenAlwaysOn']);
+    await WakeLockService.setEnabled(preferences.screenAlwaysOn);
+    if (!mounted) return;
     setState(() {
       volume = preferences.volume;
       recoveryPause = preferences.recoveryPause;
@@ -171,6 +177,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
 
   @override
   void dispose() {
+    WakeLockService.setEnabled(false);
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
     super.dispose();
   }

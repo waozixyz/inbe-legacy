@@ -10,6 +10,7 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:inner_breeze/utils/audio_player_service.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class ExerciseStep1 extends StatefulWidget {
   ExerciseStep1({super.key});
@@ -58,6 +59,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     int? localRounds = sessionData?.rounds.length;
     int localVolume = preferences.volume;
     String? localSessionId;
+    await WakeLockService.setEnabled(preferences.screenAlwaysOn);
 
     if (localRounds == 0) {
       localSessionId = await userProvider.startNewSession();
@@ -222,6 +224,9 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
 
   @override
   void dispose() {
+    WakeLockService.setEnabled(false);
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual, overlays: SystemUiOverlay.values);
     audioPlayerService.disposePlayer('bell');
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
