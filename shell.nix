@@ -68,11 +68,17 @@ pkgs.mkShell {
     libxkbcommon
     ninja
     pcre
+    pcre2
     pkg-config
     pango
     cairo
     harfbuzz
+    libsysprof-capture
     sysprof
+    util-linux
+    libunwind
+    elfutils
+    zstd
     xorg.libX11
     xorg.libXcursor
     xorg.libXext
@@ -127,7 +133,13 @@ pkgs.mkShell {
     # Ensure sysprof-capture-4.pc and other pkg-config files are found
     export PKG_CONFIG_PATH=${pkgs.lib.makeSearchPathOutput "dev" "lib/pkgconfig" (with pkgs; [
       sysprof
+      libsysprof-capture
       glib
+      pcre2
+      util-linux
+      libunwind
+      elfutils
+      zstd
       gtk3
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
