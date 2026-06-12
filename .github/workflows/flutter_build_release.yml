@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - dev
-    tags:
-      - '*'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
 
 env:
   FLUTTER_VERSION: '3.41.9'
-  IS_PRERELEASE: ${{ startsWith(github.ref, 'refs/tags/') && 'false' || 'true' }}
-  RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
 
 jobs:
   cancel:
@@ -34,6 +35,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive 
+        fetch-depth: 0
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -88,6 +90,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     
     - name: Cache Flutter SDK
       uses: actions/cache@v4
@@ -204,11 +208,23 @@ jobs:
     name: Release Builds
     needs: [android, linux] 
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Read App Version
+      id: app_version
+      run: |
+        FULL_VERSION=$(awk '/^version:/ { print $2; exit }' pubspec.yaml)
+        VERSION=${FULL_VERSION%%+*}
+        if [ -z "$VERSION" ]; then
+          echo "Could not read version from pubspec.yaml"
+          exit 1
+        fi
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        echo "tag=$VERSION" >> "$GITHUB_OUTPUT"
   
     - name: Download APK Artifact
       uses: actions/download-artifact@v4
@@ -221,16 +237,33 @@ jobs:
       with:
         name: linux-artifacts
         path: build/linux/
+
+    - name: Create and Push Tag
+      id: tag_version
+      run: |
+        TAG="${{ steps.app_version.outputs.tag }}"
+        if git rev-parse "$TAG" >/dev/null 2>&1; then
+          echo "Tag $TAG exists, using existing tag"
+        else
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+        fi
+        echo "tag_name=$TAG" >> "$GITHUB_OUTPUT"
     
     
-    - name: Create Release and Upload Builds
-      uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "${{ env.RELEASE_TAG }}"
-        prerelease: "${{ env.IS_PRERELEASE }}"
-        title: "${{ env.RELEASE_TAG }}"
+        tag_name: ${{ steps.tag_version.outputs.tag_name }}
+        name: ${{ steps.app_version.outputs.version }}
+        generate_release_notes: true
+        draft: false
+        prerelease: false
         files: |
           build/app/outputs/flutter-apk/InnerBreeze.apk
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
