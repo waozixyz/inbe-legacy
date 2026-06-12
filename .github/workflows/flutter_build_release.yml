@@ -8,7 +8,7 @@ on:
       - '*'
 
 env:
-  FLUTTER_VERSION: '3.24.0'
+  FLUTTER_VERSION: '3.41.9'
   IS_PRERELEASE: ${{ startsWith(github.ref, 'refs/tags/') && 'false' || 'true' }}
   RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
 
@@ -103,7 +103,12 @@ jobs:
           ninja-build \
           pkg-config \
           libgtk-3-dev \
+          libsysprof-capture-4-dev \
+          libpcre2-dev \
+          libmount-dev \
           libunwind-dev \
+          libdw-dev \
+          libzstd-dev \
           liborc-dev \
           liblzma-dev \
           gstreamer1.0-plugins-base \

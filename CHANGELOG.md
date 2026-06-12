@@ -5,6 +5,7 @@
 - Add legacy converter link for exported data
 - Fix background screen wake lock behavior
 - Fix Nix shell Linux build dependencies
+- Update GitHub Actions Flutter and Linux build dependencies
 - Remove unused Syncfusion dependency
 
 ## [1.5.0] - 2026-05-28

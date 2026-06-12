@@ -69,6 +69,7 @@
                     <li>Add legacy converter link for exported data</li>
                     <li>Fix background screen wake lock behavior</li>
                     <li>Fix Nix shell Linux build dependencies</li>
+                    <li>Update GitHub Actions Flutter and Linux build dependencies</li>
                     <li>Remove unused Syncfusion dependency</li>
                 </ul>
             </description>
