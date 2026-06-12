@@ -7,30 +7,23 @@
 }:
 
 let
-  # Use Flutter 3.24.0 for compatibility with Kotlin 1.9.20
-  flutter = pkgs.flutter.overrideAttrs (oldAttrs: rec {
-    version = "3.24.0";
-    src = pkgs.fetchurl {
-      url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.0-stable.tar.xz";
-      hash = "sha256-1SpdEvF9i8+GjRzMAf4Pf/sFtT2WKKohsHoY+dM2IfI=";
-    };
-  });
+  flutter = pkgs.flutter;
 
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     cmdLineToolsVersion = "9.0";
     toolsVersion = "26.1.1";
     platformToolsVersion = "35.0.2";
-    buildToolsVersions = [ "30.0.3" "33.0.0" ];
+    buildToolsVersions = [ "30.0.3" "33.0.0" "34.0.0" "36.0.0" ];
     includeEmulator = false;
     emulatorVersion = "32.1.15";
-    platformVersions = [ "28" "29" "30" "33" ];
+    platformVersions = [ "28" "29" "30" "33" "34" "36" ];
     includeSources = false;
     includeSystemImages = false;
     systemImageTypes = [ "google_apis_playstore" ];
     abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
     cmakeVersions = [ "3.22.1" ];
     includeNDK = true;
-    ndkVersions = ["25.2.9519653"];
+    ndkVersions = [ "28.2.13676358" ];
     useGoogleAPIs = false;
     useGoogleTVAddOns = false;
     includeExtras = [

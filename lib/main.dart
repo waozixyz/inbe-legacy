@@ -5,7 +5,6 @@ import 'package:inner_breeze/widgets/centered_max_width_widget.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'router/router.dart';
-import 'utils/platform_checker.dart';
 
 const String title = 'Inner Breeze';
 final GlobalKey<AppState> appKey = GlobalKey();
@@ -53,12 +52,19 @@ class AppState extends State<App> {
   void initState() {
     super.initState();
     initializeLocale();
-    _preloadAssets(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _preloadAssets(context);
+      }
+    });
   }
 
   Future<void> initializeLocale() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String languageCode = await userProvider.getLanguagePreference();
+    if (!mounted) {
+      return;
+    }
     setState(() {
       _currentLocale = Locale(languageCode);
     });

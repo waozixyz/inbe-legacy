@@ -15,13 +15,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
   bool saveProgress = true;
   int rounds = 0;
   Map<int, Duration> allRoundDurations = {};
-  
+
   @override
   void initState() {
     super.initState();
     _loadSessions();
   }
-  
+
   Future<void> _loadSessions() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final sessionData = await userProvider.loadSessionData();
@@ -66,7 +66,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
               itemBuilder: (context, index) {
                 int roundNumber = index + 1;
                 Duration? duration = allRoundDurations[roundNumber];
-                
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -83,23 +83,23 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       Row(
                         children: [
                           Text(
-                            duration != null 
-                              ? '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
-                              : 'no_data'.i18n(),
+                            duration != null
+                                ? '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
+                                : 'no_data'.i18n(),
                             style: BreezeStyle.body,
                           ),
                           SizedBox(width: 25),
                           IconButton(
-                            icon: Icon(Icons.delete, color: Colors.teal),
-                           onPressed: () async {
-                              await userProvider.deleteRound(roundNumber);
-                              final sessionData = await userProvider.loadSessionData();
-                              setState(() {
-                                rounds = sessionData!.rounds.length;
-                                _loadSessions();
-                              });
-                            }
-                          )
+                              icon: Icon(Icons.delete, color: Colors.teal),
+                              onPressed: () async {
+                                await userProvider.deleteRound(roundNumber);
+                                final sessionData =
+                                    await userProvider.loadSessionData();
+                                setState(() {
+                                  rounds = sessionData!.rounds.length;
+                                  _loadSessions();
+                                });
+                              })
                         ],
                       )
                     ],
@@ -109,7 +109,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
           ],
         ),
-      ),     
+      ),
       bottomNavigationBar: BottomAppBar(
         height: 140,
         color: Colors.transparent,
@@ -128,7 +128,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         });
                       }
                     : null,
-                activeColor: Colors.teal,
+                activeThumbColor: Colors.teal,
               ),
             ),
             SizedBox(height: 10),
@@ -140,10 +140,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   _handleClose();
                   context.go('/home');
                 },
-                child: Text(
-                  'close_button'.i18n(),
-                  style: BreezeStyle.bodyBig
-                ),
+                child: Text('close_button'.i18n(), style: BreezeStyle.bodyBig),
               ),
             ),
           ],

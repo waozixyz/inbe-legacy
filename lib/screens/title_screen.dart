@@ -5,7 +5,6 @@ import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
-import 'package:flutter/foundation.dart';
 
 bool isOldDomain() {
   return false;
@@ -34,8 +33,10 @@ class DeprecationModal extends StatelessWidget {
                 Icon(Icons.web, color: Colors.teal),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text('https://inbe.waozi.xyz/',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal),
+                  child: Text(
+                    'https://inbe.waozi.xyz/',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.teal),
                   ),
                 ),
               ],
@@ -45,8 +46,10 @@ class DeprecationModal extends StatelessWidget {
                 Icon(Icons.phone_android, color: Colors.teal),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text('F-Droid: xyz.waozi.inbe',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal),
+                  child: Text(
+                    'F-Droid: xyz.waozi.inbe',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.teal),
                   ),
                 ),
               ],
@@ -66,11 +69,10 @@ class DeprecationModal extends StatelessWidget {
   }
 }
 
-
 class DeprecationBanner extends StatelessWidget {
   final VoidCallback onTap;
 
-  const DeprecationBanner({Key? key, required this.onTap}) : super(key: key);
+  const DeprecationBanner({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,8 @@ class DeprecationBanner extends StatelessWidget {
             Expanded(
               child: Text(
                 '⚠️ Legacy Version: Tap to learn about the new Raylib version',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -98,7 +101,6 @@ class DeprecationBanner extends StatelessWidget {
     );
   }
 }
-
 
 class TitleScreen extends StatefulWidget {
   @override
@@ -159,11 +161,11 @@ class _TitleScreenState extends State<TitleScreen> {
                       style: OutlinedButton.styleFrom(
                         minimumSize: Size(180, 60),
                       ),
+                      onPressed: _navigateToExercise,
                       child: Text(
                         "start_button".i18n(),
                         style: BreezeStyle.bodyBig,
                       ),
-                      onPressed: _navigateToExercise,
                     ),
                   ],
                 ),

@@ -89,7 +89,9 @@ class AnimatedCircleState extends State<AnimatedCircle>
         switch (control) {
           case 'repeat':
             if (_controller.status == AnimationStatus.forward ||
-                _controller.status == AnimationStatus.reverse) break;
+                _controller.status == AnimationStatus.reverse) {
+              break;
+            }
             if (_controller.status == AnimationStatus.dismissed) {
               audioPlayerService.play('assets/sounds/breath-in.ogg',
                   widget.volume.toDouble(), 'in');
