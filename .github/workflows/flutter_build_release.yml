@@ -36,10 +36,15 @@ jobs:
         submodules: recursive 
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'  # or 'zulu', depending on your preference
         java-version: '17'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: '8.10.2'
 
     - name: Cache Flutter SDK and dependencies
       uses: actions/cache@v4
