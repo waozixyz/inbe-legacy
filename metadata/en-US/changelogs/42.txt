@@ -1,0 +1,6 @@
+* Upgrade to Java 21 (OpenJDK) for improved performance and security
+* Update build configuration for Java 21 compatibility
+* Fix nix-shell CMake cache issues for Linux builds
+* Add missing Linux desktop dependencies (xdmcp, orc)
+* Update CI workflow to use Java 21
+

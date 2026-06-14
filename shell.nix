@@ -38,7 +38,7 @@ pkgs.mkShell {
 
     # Android dependencies
     androidComposition.androidsdk
-    jdk17
+    jdk21
 
     # Linux desktop dependencies
     at-spi2-core
@@ -60,6 +60,7 @@ pkgs.mkShell {
     libthai
     libxkbcommon
     ninja
+    orc
     pcre
     pcre2
     pkg-config
@@ -73,6 +74,7 @@ pkgs.mkShell {
     elfutils
     zstd
     xorg.libX11
+    xorg.libXdmcp
     xorg.libXcursor
     xorg.libXext
     xorg.libXinerama
@@ -136,6 +138,8 @@ pkgs.mkShell {
       gtk3
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
+      xorg.libXdmcp
+      orc
     ])}:$PKG_CONFIG_PATH
   '';
 }

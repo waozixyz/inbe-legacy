@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2] - 2026-06-13
+- Upgrade to Java 21 (OpenJDK) for improved performance and security
+- Update build configuration for Java 21 compatibility
+- Fix nix-shell CMake cache issues for Linux builds
+- Add missing Linux desktop dependencies (xdmcp, orc)
+- Update CI workflow to use Java 21
+
 ## [1.5.1] - 2026-06-12
 - Fix Android data export sharing for backups
 - Add legacy converter link for exported data

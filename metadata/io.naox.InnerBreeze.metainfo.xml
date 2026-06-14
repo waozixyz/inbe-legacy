@@ -62,6 +62,17 @@
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inbreeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
 <releases>
+        <release version="1.5.2" date="2026-06-13">
+            <description>
+                <ul>
+                    <li>Upgrade to Java 21 (OpenJDK) for improved performance and security</li>
+                    <li>Update build configuration for Java 21 compatibility</li>
+                    <li>Fix nix-shell CMake cache issues for Linux builds</li>
+                    <li>Add missing Linux desktop dependencies (xdmcp, orc)</li>
+                    <li>Update CI workflow to use Java 21</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.1" date="2026-06-12">
             <description>
                 <ul>
